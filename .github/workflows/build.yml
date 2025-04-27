@@ -5,7 +5,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout root
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           sparse-checkout: .
       - name: Build windows exe
