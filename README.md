@@ -16,7 +16,9 @@ pip install NBT
 
 ### From .exe
 
-You can find .exe artifact files, compiled with pyinstaller, from the latest github "build" action.
+You can find .exe artifact files, compiled with pyinstaller, from the latest [github build action](https://github.com/blockninja124/valkyrien-ship-modifier/actions/workflows/build.yml).
+Download the .zip that corresponds to your OS (Mac doesn't work, idk why), unzip it, and run the file inside. Windows defender/your antivirus may flag it as unknown publisher. 
+Simply hit "more info"/"advanced" to bypass this. (If you don't trust me, run it from source, or not at all)
 
 ## Usage
 
