@@ -4,14 +4,17 @@ jobs:
   Run-PyInstaller:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup build artifact uploading
-        uses: actions/upload-artifact@v4.6.2
       - name: PyInstaller Action
         # You may pin to the exact commit or the version.
         # uses: Martin005/pyinstaller-action@dcfd75f8789130c10c0a34c3dee563e3f6906ea4
         uses: Martin005/pyinstaller-action@v1.2.0
+        id: pyinst
         with:
           spec: main.py
           requirements: requirements.txt
-          upload_exe_with_name: ValkModApp
           options: --onefile, --name "Valk Modifier", --windowed
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: "Valk Modifier"
+          path: steps.pyinst.outputs.executable_path
