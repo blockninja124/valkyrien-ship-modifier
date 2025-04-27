@@ -5,16 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: PyInstaller Action
-        # You may pin to the exact commit or the version.
-        # uses: Martin005/pyinstaller-action@dcfd75f8789130c10c0a34c3dee563e3f6906ea4
-        uses: blockninja124/pyinstaller-action@002cf0572e6522daac3abd996ff236dffb5d9d89
-        id: pyinst
+        uses: blockninja124/pyinstaller-action@f0aaeb885829e891c3c774ecb524f4ae45c50364
         with:
           spec: main.py
-          upload_exe_with_name: ''
+          upload_exe_with_name: 'ValkModifierApp'
           options: --onefile, --name "Valk Modifier", --windowed
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4.6.2
-        with:
-          name: "Valk Modifier"
-          path: steps.pyinst.outputs.executable_path
