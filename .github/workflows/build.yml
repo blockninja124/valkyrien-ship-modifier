@@ -1,16 +1,42 @@
 name: Build python exe
 on: workflow_dispatch
 jobs:
-  Run-PyInstaller:
+  Build-Windows:
     runs-on: windows-latest
     steps:
       - name: Checkout root
         uses: actions/checkout@v4
         with:
           sparse-checkout: .
-      - name: Build windows exe
+      - name: Run PyInstaller
         uses: blockninja124/pyinstaller-action@543e498d8ddf966a220de5c808957fa8cb3590cf
         with:
           spec: main.py
           upload_exe_with_name: 'WindowsArtifact'
+          options: --onefile, --windowed, --icon valkyrienskies.ico
+  Build-Linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout root
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .
+      - name: Run PyInstaller
+        uses: blockninja124/pyinstaller-action@543e498d8ddf966a220de5c808957fa8cb3590cf
+        with:
+          spec: main.py
+          upload_exe_with_name: 'LinuxArtifact'
+          options: --onefile, --windowed, --icon valkyrienskies.ico
+  Build-Mac:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout root
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .
+      - name: Run PyInstaller
+        uses: blockninja124/pyinstaller-action@543e498d8ddf966a220de5c808957fa8cb3590cf
+        with:
+          spec: main.py
+          upload_exe_with_name: 'MacArtifact'
           options: --onefile, --windowed, --icon valkyrienskies.ico
