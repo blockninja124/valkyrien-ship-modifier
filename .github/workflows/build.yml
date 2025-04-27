@@ -4,7 +4,11 @@ jobs:
   Run-PyInstaller:
     runs-on: windows-latest
     steps:
-      - name: PyInstaller Action
+      - name: Checkout root
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .
+      - name: Build windows exe
         uses: blockninja124/pyinstaller-action@543e498d8ddf966a220de5c808957fa8cb3590cf
         with:
           spec: main.py
