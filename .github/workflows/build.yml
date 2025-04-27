@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: PyInstaller Action
-        uses: blockninja124/pyinstaller-action@f0aaeb885829e891c3c774ecb524f4ae45c50364
+        uses: blockninja124/pyinstaller-action@002cf0572e6522daac3abd996ff236dffb5d9d89
         with:
           spec: main.py
           upload_exe_with_name: 'ValkModifierApp'
