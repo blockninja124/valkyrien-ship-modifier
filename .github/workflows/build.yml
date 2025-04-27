@@ -2,12 +2,11 @@ name: Build python exe
 on: workflow_dispatch
 jobs:
   Run-PyInstaller:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: PyInstaller Action
         uses: blockninja124/pyinstaller-action@002cf0572e6522daac3abd996ff236dffb5d9d89
         with:
           spec: main.py
-          exe_path: ./dist/main.exe
           upload_exe_with_name: 'ValkModifierApp'
           options: --onefile, --windowed
