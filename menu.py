@@ -42,6 +42,8 @@ def on_file_selected(button, filename):
         globals.tree.configure(yscrollcommand = verscrlbar.set)
 
         globals.tree.bind("<<TreeviewSelect>>", treeviewSelect)
+        globals.tree.bind("<Button-3>", try_open_menu)
+        globals.tree.bind("<Double-1>", on_double_click)
 
         globals.tree.pack(fill=tk.BOTH, expand=True)
 
@@ -54,7 +56,6 @@ def on_file_selected(button, filename):
         parent = globals.tree.insert("", "end", text="Ships-list")
         add_dic_to_tree(list_to_dict(ships_dic["ships"]), globals.tree, parent, 0)
         
-        globals.tree.bind("<Double-1>", on_double_click)
         
 def on_double_click(event):
     
@@ -184,7 +185,7 @@ def on_reset():
 
 
 
-"""
+
 def try_open_menu(event):
     selected = globals.tree.selection()
 
@@ -192,15 +193,35 @@ def try_open_menu(event):
 
     if selected != ():
         m = tk.Menu(globals.root, tearoff=0)
-        m.add_command(label="Cut")
-        m.add_command(label="Copy")
-        m.add_command(label="Paste")
-        m.add_command(label="Reload")
+        m.add_command(label="Copy", command=lambda: copySelection(selected))
         m.add_separator()
-        m.add_command(label="Rename")
+        m.add_command(label="Delete", command=lambda: deleteSelection(selected))
         try:
             m.tk_popup(event.x_root, event.y_root)
         finally:
             m.grab_release()
 
-"""
+def copySelection(selection: tuple):
+    copyText = ""
+    for item in selection:
+        copyText += str(globals.tree.item(item, "text")) + ","
+    globals.root.clipboard_clear()
+    globals.root.clipboard_append(copyText[0:-1])
+
+def deleteSelection(selection: tuple):
+
+    action = tkinter.messagebox.Message(
+        title="Confirm Delete", 
+        message="Are you sure you want to delete "+str(len(selection))+" items?", 
+        detail="This is VERY risky, only confirm if you know what you are doing!", 
+        icon=tkinter.messagebox.WARNING, 
+        type=tkinter.messagebox.OKCANCEL
+    ).show()
+
+    if action == "cancel":
+        return
+    
+    globals.is_modified = True
+
+    for item in selection:
+        globals.tree.delete(item)
