@@ -12,7 +12,7 @@ jobs:
         uses: blockninja124/pyinstaller-action@543e498d8ddf966a220de5c808957fa8cb3590cf
         with:
           spec: main.py
-          upload_exe_with_name: 'WindowsArtifact'
+          upload_exe_with_name: 'WindowsArtifact_${{github.run_id}}'
           options: --onefile, --windowed, --icon valkyrienskies.ico
   Build-Linux:
     runs-on: ubuntu-latest
@@ -25,7 +25,7 @@ jobs:
         uses: blockninja124/pyinstaller-action@543e498d8ddf966a220de5c808957fa8cb3590cf
         with:
           spec: main.py
-          upload_exe_with_name: 'LinuxArtifact'
+          upload_exe_with_name: 'LinuxArtifact_${{github.run_id}}'
           options: --onefile, --windowed, --icon valkyrienskies.ico
   Build-Mac:
     runs-on: macos-13
@@ -38,5 +38,5 @@ jobs:
         uses: blockninja124/pyinstaller-action@543e498d8ddf966a220de5c808957fa8cb3590cf
         with:
           spec: main.py
-          upload_exe_with_name: 'MacArtifact'
+          upload_exe_with_name: 'MacArtifact_${{github.run_id}}'
           options: --onefile, --windowed, --icon valkyrienskies.icns
