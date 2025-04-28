@@ -2,6 +2,8 @@ import tkinter as tk
 import tkinter.filedialog
 import tkinter.messagebox
 import shutil
+from tkinterutils import SearchableTreeview
+
 from tkinter import Event, ttk
 from ship_nbt import readShipsFile, writeShipsFile
 from treeutils import add_dic_to_tree, list_to_dict, tree_to_dict
@@ -23,14 +25,27 @@ def ask_for_file(button):
         on_file_selected(button, filename)
 
 def on_file_selected(button, filename):
+
         button.pack_forget()
         
-        globals.tree = ttk.Treeview(globals.root)
+        globals.tree = SearchableTreeview(globals.tree_frame)
+
+        verscrlbar = ttk.Scrollbar(globals.tree_frame, 
+                                orient ="vertical", 
+                                command = globals.tree.yview)
+        
+        # Calling pack method w.r.to vertical 
+        # scrollbar
+        verscrlbar.pack(side ='right', fill ='y')
+        
+        # Configuring treeview
+        globals.tree.configure(yscrollcommand = verscrlbar.set)
+
         globals.tree.bind("<<TreeviewSelect>>", treeviewSelect)
 
         globals.tree.pack(fill=tk.BOTH, expand=True)
 
-        globals.file_buttons_frame.pack(after=globals.tree, side="bottom")
+        globals.file_buttons_frame.pack(after=globals.tree_frame, side="bottom")
         
         globals.filename = filename
 
@@ -160,7 +175,11 @@ def onSaveButton():
     
 
 
+def on_search(entry):
+    globals.tree.search(entry.get())
 
+def on_reset():
+    globals.tree.reset_search()
 
 
 
