@@ -28,7 +28,7 @@ jobs:
           upload_exe_with_name: 'LinuxArtifact'
           options: --onefile, --windowed, --icon valkyrienskies.ico
   Build-Mac:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - name: Checkout root
         uses: actions/checkout@v4
