@@ -9,7 +9,7 @@ jobs:
         with:
           sparse-checkout: .
       - name: Run PyInstaller
-        uses: blockninja124/pyinstaller-action@latest
+        uses: blockninja124/pyinstaller-action@23be44be22b963c6f6323bea07c90d9657609584
         with:
           spec: main.py
           upload_exe_with_name: 'WindowsArtifact_${{github.run_id}}'
@@ -23,7 +23,7 @@ jobs:
         with:
           sparse-checkout: .
       - name: Run PyInstaller
-        uses: blockninja124/pyinstaller-action@latest
+        uses: blockninja124/pyinstaller-action@23be44be22b963c6f6323bea07c90d9657609584
         with:
           spec: main.py
           upload_exe_with_name: 'LinuxArtifact_${{github.run_id}}'
@@ -37,7 +37,7 @@ jobs:
         with:
           sparse-checkout: .
       - name: Run PyInstaller
-        uses: blockninja124/pyinstaller-action@latest
+        uses: blockninja124/pyinstaller-action@23be44be22b963c6f6323bea07c90d9657609584
         with:
           spec: main.py
           upload_exe_with_name: 'MacArtifact_${{github.run_id}}'
