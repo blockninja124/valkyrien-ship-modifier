@@ -194,12 +194,37 @@ def try_open_menu(event):
     if selected != ():
         m = tk.Menu(globals.root, tearoff=0)
         m.add_command(label="Copy", command=lambda: copySelection(selected))
+        m.add_command(label="New", command=lambda: newOnSelection(selected))
         m.add_separator()
         m.add_command(label="Delete", command=lambda: deleteSelection(selected))
         try:
             m.tk_popup(event.x_root, event.y_root)
         finally:
             m.grab_release()
+
+def newOnSelection(selection: tuple):
+    
+    entry = tk.Entry(globals.root)
+    x, y, width, height = globals.tree.bbox(selection[0])
+    entry.place(x=x, y=y + globals.tree.winfo_y(), width=width, height=height)
+    entry.insert(0, "")
+    entry.focus()
+
+    def save_edit(event=None):
+        globals.is_modified = True
+        new_val = entry.get()
+
+        try:
+            if not str(float(new_val)) == new_val:
+                new_val = float(new_val)
+        except:
+            pass
+        
+        globals.tree.insert(selection[0], "end", text=new_val)
+        entry.destroy()
+
+    entry.bind("<Return>", save_edit)
+    entry.bind("<FocusOut>", lambda e: entry.destroy())
 
 def copySelection(selection: tuple):
     copyText = ""

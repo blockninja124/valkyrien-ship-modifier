@@ -26,6 +26,7 @@ class SearchableTreeview(ttk.Treeview):
                     parent = self.parent(parent)
 
                 self.item(item, tags=("highlight",))
+                self.selection_add(item) 
 
         # Scroll to the first match
         if self.search_matches:
@@ -41,6 +42,7 @@ class SearchableTreeview(ttk.Treeview):
             self.item(item, open=was_open)
 
         self.search_matches.clear()
+        self.selection_remove(*self.selection())
         self.original_open_states.clear()
 
     def get_children_recursively(self, item=""):
